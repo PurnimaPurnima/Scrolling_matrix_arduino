@@ -1,20 +1,24 @@
-String voice;
 int bitread(int,int);
 void image(int *);
+
+//The following arrays have a type int
+//Each element of the arrays represents a single row.
+//Convert Each element to binary. 1 stands for on and 0 stands for off.
+//Since the letters scroll from right to left, the asymmetric letters are written as their mirror image.
 int A[]={96,144,144,240,144,144,144};
 int B[]={112,144,144,112,144,144,112};
 int C[]={224,16,16,16,16,16,224};
 int D[]={112,144,144,144,144,144,112};
 int E[]={240,16,16,112,16,16,240};
 int F[]={240,16,16,112,16,16,16};
-int G[]={240,8,8,232,136,136,240};//5
+int G[]={240,8,8,232,136,136,240};
 int H[]={144,144,144,240,144,144,144};
-int I[]={224,64,64,64,64,64,224};//3
-int J[]={248,32,32,32,40,40,16};//5
+int I[]={224,64,64,64,64,64,224};
+int J[]={248,32,32,32,40,40,16};
 int K[]={144,144,80,48,80,144,144};
 int L[]={16,16,16,16,16,16,240};
-int M[]={136,216,168,136,136,136,136};//5
-int N[]={128,136,152,168,200,136,8};//5
+int M[]={136,216,168,136,136,136,136};
+int N[]={128,136,152,168,200,136,8};
 int O[]={96,144,144,144,144,144,96};
 int P[]={112,144,144,112,16,16,16};
 int Q[]={112,136,136,168,168,112,128};
@@ -22,14 +26,14 @@ int R[]={112,144,144,112,144,144,144};
 int S[]={224,16,16,96,128,128,112};
 int T[]={248,32,32,32,32,32,32};
 int U[]={144,144,144,144,144,144,96};
-int V[]={136,136,136,136,136,80,32};//5
+int V[]={136,136,136,136,136,80,32};
 int W[]={136,136,136,136,168,216,136};
-int X[]={136,136,80,32,80,136,136};//5
-int Y[]={136,136,80,32,32,32,32};//5
-int Z[]={248,128,64,32,16,8,248};//5
+int X[]={136,136,80,32,80,136,136};
+int Y[]={136,136,80,32,32,32,32};
+int Z[]={248,128,64,32,16,8,248};
 
-const int rows[]={2,3,4,5,6,7,8,9};
-const int cols[]={10,11,12,13,14,15,16};
+const int rows[]={2,3,4,5,6,7,8,9}; //positive terminals of the LEDs are connected in these pins, 2 being the extreme left, 9 being the extreme right.
+const int cols[]={10,11,12,13,14,15,16}; //negative terminals of the LEDs are connected in these pins, 10 being the topmost, 16(A2) being the bottom most.
 int i;
 int j;
 int k,l,m,n=0;
@@ -43,9 +47,9 @@ void setup()
   pinMode(cols[i],OUTPUT);
   
   for(i=0;i<=6;i++)
-  digitalWrite(cols[i],HIGH);
+  digitalWrite(cols[i],HIGH); //columns disconnected from ground
   for(i=0;i<8;i++)
-  digitalWrite(rows[i],LOW);
+  digitalWrite(rows[i],LOW); 
   
   
   
@@ -95,7 +99,7 @@ void loop()
 
  
 }
-int bitread(int a, int b)
+int bitread(int a, int b) //to individually read each bit
 {
   return((a>>b)&1);
 }
@@ -115,8 +119,8 @@ void image(int *a)
         k=bitread(*(a+i),j);
         if(k==1)
         {
-          digitalWrite(j+2-l,HIGH);
-          digitalWrite(i+10,LOW);
+          digitalWrite(j+2-l,HIGH); //since 0 corresponds to the 2nd pin and so on
+          digitalWrite(i+10,LOW); //since 0 corresponds to the 10th pin and so on
           digitalWrite(j+2-l,LOW);
           digitalWrite(i+10,HIGH);
         }
